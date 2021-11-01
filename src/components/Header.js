@@ -3,9 +3,13 @@ import styled from 'styled-components'
 // import MenuIcon from '@mui/icons-material/Menu'
 import MenuIcon from '@material-ui/icons/Menu'
 import CloseIcon from '@material-ui/icons/Close'
+import { selectCars } from '../features/car/carSlice'
+import { useSelector } from 'react-redux'
 
 function Header() {
 	const [burgerStatus, setBurgerStatus] = useState(false)
+	const cars = useSelector(selectCars)
+	console.log(cars)
 
 	return (
 		<Container>
@@ -13,18 +17,12 @@ function Header() {
 				<img src='/images/logo.svg' alt='' />
 			</a>
 			<Menu>
-				<p>
-					<a href='#'>Model S</a>
-				</p>
-				<p>
-					<a href='#'>Model 3</a>
-				</p>
-				<p>
-					<a href='#'>Model X</a>
-				</p>
-				<p>
-					<a href='#'>Model Y</a>
-				</p>
+				{cars &&
+					cars.map((car, index) => (
+						<a key={index} href='#'>
+							{car}
+						</a>
+					))}
 			</Menu>
 
 			<RightMenu>
@@ -37,37 +35,31 @@ function Header() {
 				<CloseWrapper>
 					<CustomClose onClick={() => setBurgerStatus(false)} />
 				</CloseWrapper>
+
+				{cars &&
+					cars.map((car, index) => (
+						<li>
+							<a key={index} href='#'>
+								{car}
+							</a>
+						</li>
+					))}
+
 				<li>
-					{' '}
-					<a href='#'>Exiting Inventory</a>{' '}
+					<a href='#'>Exiting Inventory</a>
+				</li>
+
+				<li>
+					<a href='#'>Used Inventory</a>
 				</li>
 				<li>
-					{' '}
-					<a href='#'>Used Inventory</a>{' '}
+					<a href='#'>Trade-in</a>
 				</li>
 				<li>
-					{' '}
-					<a href='#'>Trade-in</a>{' '}
+					<a href='#'>Cybertruck</a>
 				</li>
 				<li>
-					{' '}
-					<a href='#'>Cybertruck</a>{' '}
-				</li>
-				<li>
-					{' '}
-					<a href='#'>Roadaster</a>{' '}
-				</li>
-				<li>
-					{' '}
-					<a href='#'>Exiting Inventory</a>{' '}
-				</li>
-				<li>
-					{' '}
-					<a href='#'>Exiting Inventory</a>{' '}
-				</li>
-				<li>
-					{' '}
-					<a href='#'>Exiting Inventory</a>{' '}
+					<a href='#'>Roadaster</a>
 				</li>
 			</BurgerNav>
 		</Container>
